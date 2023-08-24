@@ -15,13 +15,13 @@ namespace XorTag.Controllers
             this.movePlayerCommand = movePlayerCommand;
         }
 
-        [Route("/register")]
+        [HttpPost("/register")]
         public CommandResult Register()
         {
             return registerPlayerCommand.Execute();
         }
 
-        [Route("/move{direction}/{playerId}")]
+        [HttpPost("/move{direction}/{playerId}")]
         public CommandResult Move(string direction, int playerId)
         {
             return movePlayerCommand.Execute(direction, playerId);

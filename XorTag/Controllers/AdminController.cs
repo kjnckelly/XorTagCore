@@ -4,6 +4,7 @@ using XorTag.Domain;
 namespace XorTag.Controllers
 {
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("/admin")]
     public class AdminController : ControllerBase
     {
@@ -14,7 +15,7 @@ namespace XorTag.Controllers
             this.playerRepository = playerRepository;
         }
 
-        [Route("clearall")]
+        [HttpPost("clearall")]
         public void ClearAll()
         {
             playerRepository.ClearAllPlayers();

@@ -4,6 +4,7 @@ using XorTag.Commands;
 namespace XorTag.Controllers
 {
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class StatsController: ControllerBase
     {
         private readonly StatsCommand statsCommand;
@@ -13,7 +14,7 @@ namespace XorTag.Controllers
             this.statsCommand = statsCommand;
         }
 
-        [Route("/stats")]
+        [HttpGet("/stats")]
         public StatsResult Get()
         {
             return statsCommand.Execute();

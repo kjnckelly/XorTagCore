@@ -5,6 +5,7 @@ using XorTag.Domain;
 namespace XorTag.Controllers
 {
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class MapController : ControllerBase
     {
         private readonly MapImageBuilder mapImageBuilder;
@@ -16,7 +17,7 @@ namespace XorTag.Controllers
             this.logger = logger;
         }
 
-        [Route("/map")]
+        [HttpGet("/map")]
         [ResponseCache(Duration = 1)]
         public IActionResult Get()
         {
