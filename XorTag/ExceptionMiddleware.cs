@@ -1,39 +1,35 @@
-using System;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using XorTag.Domain;
 
-namespace XorTag
+namespace XorTag;
+
+public class ExceptionMiddleware
 {
-    public class ExceptionMiddleware
+    private readonly RequestDelegate next;
+
+    public ExceptionMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate next;
+        this.next = next;
+    }
 
-        public ExceptionMiddleware(RequestDelegate next)
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
         {
-            this.next = next;
+            await next(context);
         }
-
-        public async Task InvokeAsync(HttpContext context)
+        catch (NotFoundException)
         {
-            try
-            {
-                await next(context);
-            }
-            catch (NotFoundException)
-            {
-                Console.WriteLine("Resource not found " + context.Request.Path);
-                context.Response.StatusCode = 404;
-                await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes("Resource not found"));
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("An unexpected exeption was thrown");
-                Console.WriteLine(ex);
-                context.Response.StatusCode = 500;
-                await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes("An unexpected error occurred"));
-            }
+            Console.WriteLine("Resource not found " + context.Request.Path);
+            context.Response.StatusCode = 404;
+            await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes("Resource not found"));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An unexpected exeption was thrown");
+            Console.WriteLine(ex);
+            context.Response.StatusCode = 500;
+            await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes("An unexpected error occurred"));
         }
     }
 }
