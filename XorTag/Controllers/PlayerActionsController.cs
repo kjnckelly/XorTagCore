@@ -18,7 +18,7 @@ public class PlayerActionsController : ControllerBase
     }
 
     [HttpPost("/register")]
-    public CommandResult Register()
+    public RegistrationResult Register()
     {
         return registerPlayerCommand.Execute();
     }

@@ -18,7 +18,7 @@ public class RegisterPlayerCommand
         this.random = random;
         this.playerRepository = playerRepository;
     }
-    public CommandResult Execute()
+    public RegistrationResult Execute()
     {
         var playerCount = playerRepository.GetPlayerCount();
         var player = new Player
@@ -30,7 +30,7 @@ public class RegisterPlayerCommand
             IsIt = playerCount == 0
         };
         playerRepository.Save(player);
-        return new CommandResult
+        return new RegistrationResult()
         {
             Name = player.Name,
             Id = player.Id,

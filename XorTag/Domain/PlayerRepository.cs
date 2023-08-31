@@ -22,7 +22,7 @@ public class InMemoryPlayerRepository : IPlayerRepository
 
     public IEnumerable<Player> GetAllPlayers()
     {
-        return players.ToArray();
+        return players;
     }
 
     public int GetPlayerCount()

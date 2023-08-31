@@ -9,7 +9,7 @@ public class RegisterPlayerCommandTests
 {
     public class When_registering_a_new_player : WithAnAutomocked<RegisterPlayerCommand>
     {
-        private CommandResult result;
+        private RegistrationResult result;
         private const string name = "generated-name";
         private const int mapWidth = 40;
         private const int mapHeight = 20;
@@ -65,8 +65,8 @@ public class RegisterPlayerCommandTests
 
     public class When_registering_multiple_players : WithAnAutomocked<RegisterPlayerCommand>
     {
-        private CommandResult firstResult;
-        private CommandResult secondResult;
+        private RegistrationResult firstResult;
+        private RegistrationResult secondResult;
 
         [OneTimeSetUp]
         public void SetUp()
