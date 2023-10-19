@@ -8,6 +8,7 @@ namespace XorTag.Controllers
     {
         private readonly RegisterPlayerCommand registerPlayerCommand;
         private readonly MovePlayerCommand movePlayerCommand;
+        private readonly LookPlayerCommand lookPlayerCommand;
 
         public PlayerActionsController(RegisterPlayerCommand registerPlayerCommand, MovePlayerCommand movePlayerCommand)
         {
@@ -26,5 +27,13 @@ namespace XorTag.Controllers
         {
             return movePlayerCommand.Execute(direction, playerId);
         }
+
+        [HttpGet("/look/{playerId}")]
+        public CommandResult Look(int playerId)
+        {
+            return lookPlayerCommand.Execute(playerId);
+        }
+
+        //TODO - implement Look command
     }
 }

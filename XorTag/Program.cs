@@ -48,6 +48,9 @@ namespace XorTag
 
             app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionMiddleware>();
+
+            //TODO - add rate limiting - see https://github.com/stefanprodan/AspNetCoreRateLimit
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthorization();

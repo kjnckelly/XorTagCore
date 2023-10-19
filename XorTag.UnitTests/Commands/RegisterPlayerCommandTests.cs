@@ -84,5 +84,7 @@ namespace XorTag.UnitTests.Commands
             [Test]
             public void It_should_set_second_player_as_NOT_it() => Assert.That(secondResult.IsIt, Is.False);
         }
+
+        //TODO - return list of players
     }
 }
