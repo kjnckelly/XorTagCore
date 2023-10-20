@@ -22,7 +22,8 @@ public class LookPlayerCommand
         {
             X = currentPlayer.X,
             Y = currentPlayer.Y,
-            IsIt = currentPlayer.IsIt
+            IsIt = currentPlayer.IsIt,
+            Players = playerRepository.GetNearbyPlayers(currentPlayer.X, currentPlayer.Y).Select(p => new PlayerResult() { IsIt = p.IsIt, X = p.X, Y = p.Y }).ToList()
         };
     }
 }

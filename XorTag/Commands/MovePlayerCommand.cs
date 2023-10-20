@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using XorTag.Domain;
 
 namespace XorTag.Commands;
@@ -24,9 +25,11 @@ public class MovePlayerCommand
         {
             X = currentPlayer.X,
             Y = currentPlayer.Y,
-            IsIt = currentPlayer.IsIt
+            IsIt = currentPlayer.IsIt,
+            Players = playerRepository.GetNearbyPlayers(currentPlayer.X, currentPlayer.Y).Select(p => new PlayerResult(){IsIt = p.IsIt, X = p.X, Y = p.Y}).ToList()
         };
     }
+
 
     private void AdjustPlayerPosition(Player currentPlayer, string direction, IEnumerable<Player> allPlayers)
     {
@@ -95,5 +98,4 @@ public class MovePlayerCommand
     {
         return allPlayers.FirstOrDefault(p => p.X == newX && p.Y == newY);
     }
-
 }

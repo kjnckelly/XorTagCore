@@ -39,7 +39,7 @@ public class RegisterPlayerCommand
             MapHeight = mapSettings.MapHeight,
             X = player.X,
             Y = player.Y,
-            Players = new List<PlayerResult>()
+            Players = playerRepository.GetNearbyPlayers(player.X, player.Y).Select(p => new PlayerResult() { IsIt = p.IsIt, X = p.X, Y = p.Y }).ToList()
         };
     }
 }

@@ -9,6 +9,7 @@ public interface IPlayerRepository
     void Save(Player player);
     int GetPlayerCount();
     void ClearAllPlayers();
+    IEnumerable<Player> GetNearbyPlayers(int X, int Y);
 }
 
 public class InMemoryPlayerRepository : IPlayerRepository
@@ -19,7 +20,6 @@ public class InMemoryPlayerRepository : IPlayerRepository
     {
         players.Clear();
     }
-
     public IEnumerable<Player> GetAllPlayers()
     {
         return players;
@@ -62,4 +62,10 @@ public class InMemoryPlayerRepository : IPlayerRepository
         playerToUpdate.X = player.X;
         playerToUpdate.Y = player.Y;
     }
+    
+    public IEnumerable<Player> GetNearbyPlayers(int X, int Y)
+        => players.Where(p => InRange(Math.Abs(X - p.X) + Math.Abs(Y - p.Y),1 ,15));
+
+    private bool InRange(int val, int min, int max) => val >= min && val <= max;
+
 }
