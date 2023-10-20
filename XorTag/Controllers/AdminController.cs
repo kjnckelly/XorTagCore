@@ -20,4 +20,10 @@ public class AdminController : ControllerBase
     {
         playerRepository.ClearAllPlayers();
     }
+
+    [HttpPost("cleanup")]
+    public void ClearDeadPlayers()
+    {
+        playerRepository.ClearDeadPlayers();
+    }
 }

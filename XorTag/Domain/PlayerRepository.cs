@@ -10,11 +10,12 @@ public interface IPlayerRepository
     int GetPlayerCount();
     void ClearAllPlayers();
     IEnumerable<Player> GetNearbyPlayers(int X, int Y);
+    void ClearDeadPlayers();
 }
 
 public class InMemoryPlayerRepository : IPlayerRepository
 {
-    private readonly List<Player> players = new List<Player>();
+    private List<Player> players = new List<Player>();
 
     public void ClearAllPlayers()
     {
@@ -38,7 +39,9 @@ public class InMemoryPlayerRepository : IPlayerRepository
             Name = player.Name,
             X = player.X,
             Y = player.Y,
-            IsIt = player.IsIt
+            IsIt = player.IsIt,
+            LastAction = player.LastAction,
+            LastMove = player.LastMove
         };
         players.Add(playerCopy);
     }
@@ -65,6 +68,15 @@ public class InMemoryPlayerRepository : IPlayerRepository
     
     public IEnumerable<Player> GetNearbyPlayers(int X, int Y)
         => players.Where(p => InRange(Math.Abs(X - p.X) + Math.Abs(Y - p.Y),1 ,15));
+
+    public void ClearDeadPlayers()
+    {
+        players = players.Where(p => DateTime.Now.AddMinutes(-5) < p.LastMove).ToList();
+        if (!players.Any(p => p.IsIt) && players.Any())
+        {
+            players.Last().IsIt = true;
+        }
+    }
 
     private bool InRange(int val, int min, int max) => val >= min && val <= max;
 
