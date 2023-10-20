@@ -24,14 +24,28 @@ public class PlayerActionsController : ControllerBase
     }
 
     [HttpPost("/move{direction}/{playerId}")]
-    public CommandResult Move(string direction, int playerId)
+    public IActionResult Move(string direction, int playerId)
     {
-        return movePlayerCommand.Execute(direction, playerId);
+        try
+        {
+            return Ok(movePlayerCommand.Execute(direction, playerId));
+        }
+        catch(InvalidOperationException)
+        {
+            return StatusCode(429);
+        }
     }
 
     [HttpGet("/look/{playerId}")]
-    public CommandResult Look(int playerId)
+    public IActionResult Look(int playerId)
     {
-        return lookPlayerCommand.Execute(playerId);
+        try
+        {
+            return Ok(lookPlayerCommand.Execute(playerId));
+        }
+        catch (InvalidOperationException)
+        {
+            return StatusCode(429);
+        }
     }
 }

@@ -17,6 +17,12 @@ public class LookPlayerCommand
     {
         var allPlayers = playerRepository.GetAllPlayers();
         var currentPlayer = allPlayers.SingleOrDefault(x => x.Id == playerId);
+        if (currentPlayer.LastAction.AddSeconds(1) > DateTime.Now)
+        {
+            currentPlayer.LastAction = DateTime.Now.AddSeconds(1);
+            throw new InvalidOperationException();
+        }
+        currentPlayer.LastAction = DateTime.Now;
         if (currentPlayer == null) throw new NotFoundException();
         return new CommandResult
         {

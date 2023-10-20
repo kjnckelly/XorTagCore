@@ -27,7 +27,10 @@ public class RegisterPlayerCommand
             Name = nameGenerator.GenerateName(new string[] { }),
             X = random.Next(mapSettings.MapWidth),
             Y = random.Next(mapSettings.MapHeight),
-            IsIt = playerCount == 0
+            LastAction = DateTime.Now,
+            LastMove = DateTime.Now,
+        IsIt = playerCount == 0
+
         };
         playerRepository.Save(player);
         return new RegistrationResult()

@@ -18,6 +18,11 @@ public class MovePlayerCommand
     {
         var allPlayers = playerRepository.GetAllPlayers();
         var currentPlayer = allPlayers.SingleOrDefault(x => x.Id == playerId);
+        if (currentPlayer.LastAction.AddSeconds(1) > DateTime.Now)
+        {
+            currentPlayer.LastAction = DateTime.Now.AddSeconds(1);
+            throw new InvalidOperationException();
+        }
         if (currentPlayer == null) throw new NotFoundException();
         AdjustPlayerPosition(currentPlayer, direction, allPlayers);
         playerRepository.UpdatePlayerPosition(currentPlayer);
@@ -59,6 +64,8 @@ public class MovePlayerCommand
             {
                 currentPlayer.X = newX;
                 currentPlayer.Y = newY;
+                currentPlayer.LastMove = DateTime.Now;
+                currentPlayer.LastAction = DateTime.Now;
             }
             else
             {
