@@ -15,7 +15,7 @@ public class PlayerActionTests
         {
             var settings = new AcceptanceTestSettings();
             var client = new RestClient(settings.BaseUrl);
-            var request = new RestRequest("register");
+            var request = new RestRequest("register", Method.POST);
 
             response = client.Execute<ApiResponse>(request);
         }
@@ -41,11 +41,11 @@ public class PlayerActionTests
             var settings = new AcceptanceTestSettings();
             var client = new RestClient(settings.BaseUrl);
 
-            var clearResponse = client.Execute(new RestRequest("admin/clearall"));
+            var clearResponse = client.Execute(new RestRequest("admin/clearall"), Method.POST);
             Assert.That(clearResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 
-            firstRegistrationResponse = client.Execute<ApiResponse>(new RestRequest("register"));
-            secondRegistrationResponse = client.Execute<ApiResponse>(new RestRequest("register"));
+            firstRegistrationResponse = client.Execute<ApiResponse>(new RestRequest("register"), Method.POST);
+            secondRegistrationResponse = client.Execute<ApiResponse>(new RestRequest("register"), Method.POST);
         }
 
         [Test]
@@ -68,9 +68,9 @@ public class PlayerActionTests
 
             do //make sure that the player we've registered isn't at the top of the map
             {
-                registerResponse = client.Execute<ApiResponse>(new RestRequest("register"));
+                registerResponse = client.Execute<ApiResponse>(new RestRequest("register", Method.POST));
             } while (registerResponse.Data.Y <= 0);
-            moveReponse = client.Execute<ApiResponse>(new RestRequest("/moveup/" + registerResponse.Data.Id));
+            moveReponse = client.Execute<ApiResponse>(new RestRequest("/moveup/" + registerResponse.Data.Id, Method.POST));
         }
 
         [Test]
@@ -91,7 +91,7 @@ public class PlayerActionTests
             var settings = new AcceptanceTestSettings();
             var client = new RestClient(settings.BaseUrl);
 
-            var moveReponse = client.Execute<ApiResponse>(new RestRequest("/moveup/" + 9999));
+            var moveReponse = client.Execute<ApiResponse>(new RestRequest("/moveup/" + 9999), Method.POST);
 
             Assert.That(moveReponse.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
         }
@@ -104,9 +104,9 @@ public class PlayerActionTests
         {
             var settings = new AcceptanceTestSettings();
             var client = new RestClient(settings.BaseUrl);
-            var registerResponse = client.Execute<ApiResponse>(new RestRequest("register"));
+            var registerResponse = client.Execute<ApiResponse>(new RestRequest("register"), Method.POST);
 
-            var moveReponse = client.Execute<ApiResponse>(new RestRequest("/moveinvalid/" + registerResponse.Data.Id));
+            var moveReponse = client.Execute<ApiResponse>(new RestRequest("/moveinvalid/" + registerResponse.Data.Id, Method.POST));
 
             Assert.That(moveReponse.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
         }

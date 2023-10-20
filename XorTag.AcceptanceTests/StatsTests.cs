@@ -15,10 +15,10 @@ public class When_one_player_is_registered
         var settings = new AcceptanceTestSettings();
         var client = new RestClient(settings.BaseUrl);
 
-        client.Execute(new RestRequest("admin/clearall"));
-        registerResponse = client.Execute<ApiResponse>(new RestRequest("register"));
+        client.Execute(new RestRequest("admin/clearall"), Method.POST);
+        registerResponse = client.Execute<ApiResponse>(new RestRequest("register"), Method.POST);
 
-        statsResponse = client.Execute<StatsResponse>(new RestRequest("stats"));
+        statsResponse = client.Execute<StatsResponse>(new RestRequest("stats"), Method.GET);
     }
 
     [Test]
