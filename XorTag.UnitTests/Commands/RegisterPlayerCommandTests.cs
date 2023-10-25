@@ -23,7 +23,7 @@ public class RegisterPlayerCommandTests
             GetMock<IRandom>().Setup(x => x.Next(IsAny<int>())).Returns(() => randomValue++);
             GetMock<IMapSettings>().Setup(x => x.MapWidth).Returns(mapWidth);
             GetMock<IMapSettings>().Setup(x => x.MapHeight).Returns(mapHeight);
-            result = ClassUnderTest.Execute();
+            result = ClassUnderTest.Execute(null);
         }
 
         [Test]
@@ -74,8 +74,8 @@ public class RegisterPlayerCommandTests
             var playerCount = 0;
             GetMock<IPlayerRepository>().Setup(x => x.GetPlayerCount()).Returns(() => playerCount++);
 
-            firstResult = ClassUnderTest.Execute();
-            secondResult = ClassUnderTest.Execute();
+            firstResult = ClassUnderTest.Execute(null);
+            secondResult = ClassUnderTest.Execute(null);
         }
 
         [Test]

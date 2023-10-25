@@ -7,7 +7,7 @@ public interface IIdGenerator
 
 public class IdGenerator : IIdGenerator
 {
-    public const int IdBase = 1000;
+    public const int IdBase = 1000000000;
     private readonly IRandom random;
 
     public IdGenerator(IRandom random)
@@ -21,7 +21,7 @@ public class IdGenerator : IIdGenerator
         var existingIdsAsArray = existingIds.ToHashSet();
         do
         {
-            generatedId = IdBase + random.Next(1000);
+            generatedId = IdBase + random.Next(1000000000);
         } while (existingIdsAsArray.Contains(generatedId));
         return generatedId;
     }

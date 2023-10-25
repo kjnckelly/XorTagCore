@@ -1,7 +1,7 @@
 using System.Text;
 using XorTag.Domain;
 
-namespace XorTag;
+namespace XorTag.Infrastructure;
 
 public class ExceptionMiddleware
 {

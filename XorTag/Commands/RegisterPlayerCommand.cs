@@ -18,13 +18,13 @@ public class RegisterPlayerCommand
         this.random = random;
         this.playerRepository = playerRepository;
     }
-    public RegistrationResult Execute()
+    public RegistrationResult Execute(string? name)
     {
         var playerCount = playerRepository.GetPlayerCount();
         var player = new Player
         {
             Id = idGenerator.GenerateId(new int[] { }),
-            Name = nameGenerator.GenerateName(new string[] { }),
+            Name = name ?? nameGenerator.GenerateName(playerRepository.GetAllPlayers().Select(p => p.Name)),
             X = random.Next(mapSettings.MapWidth),
             Y = random.Next(mapSettings.MapHeight),
             LastAction = DateTime.Now,
