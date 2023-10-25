@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using XorTag.Commands;
+using XorTag.Domain;
 
 namespace XorTag.Controllers;
 
@@ -30,7 +31,11 @@ public class PlayerActionsController : ControllerBase
         {
             return Ok(movePlayerCommand.Execute(direction, playerId));
         }
-        catch(InvalidOperationException)
+        catch (NotFoundException)
+        {
+            return NotFound("Player ID is not currently registered");
+        }
+        catch (InvalidOperationException)
         {
             return StatusCode(429);
         }
@@ -42,6 +47,10 @@ public class PlayerActionsController : ControllerBase
         try
         {
             return Ok(lookPlayerCommand.Execute(playerId));
+        }
+        catch (NotFoundException)
+        {
+            return NotFound("Player ID is not currently registered");
         }
         catch (InvalidOperationException)
         {
