@@ -83,17 +83,17 @@ Here is what the different fields on that JSON object mean:
     that will let you know what your id is and where your player is. If you would like to specify your name, you can with by adding <span class="code">?name=YourName</span> to the end of the url.
     To register you need to make an HTTP request to the following url:
 </p>
-<p><span class="code">https://xortag20231025163813.azurewebsites.net/register</span></p>
+<p><span class="code">https://tagurl/register</span></p>
 
 <h3>Moving</h3>
 <p>Once you are registered you can start moving your player around. This is the heart of tag. If you are "it", try to move towards other players and tag them. 
     If you move to the same space where another player is, that counts as a tag. If you aren't "it", try to run away from the player who is.</p>
 <p>You can move in any of four directions by making HTTP requests to any of the four urls:</p>
 <p>
-    <span class="code">https://xortag20231025163813.azurewebsites.net/moveup/</span>{{your player id}}<br />
-    <span class="code">https://xortag20231025163813.azurewebsites.net/movedown/</span>{{your player id}}<br />
-    <span class="code">https://xortag20231025163813.azurewebsites.net/moveleft/</span>{{your player id}}<br />
-    <span class="code">https://xortag20231025163813.azurewebsites.net/moveright/</span>{{your player id}}<br />
+    <span class="code">https://tagurl/moveup/</span>{{your player id}}<br />
+    <span class="code">https://tagurl/movedown/</span>{{your player id}}<br />
+    <span class="code">https://tagurl/moveleft/</span>{{your player id}}<br />
+    <span class="code">https://tagurl/moveright/</span>{{your player id}}<br />
 </p>
 <p>After the direction (<span class="code">moveup</span>, <span class="code">movedown</span>, etc.), add your player's id. 
     That will make sure it's you moving your player and not some guy in Abu Dhabi.</p>
@@ -105,7 +105,7 @@ Here is what the different fields on that JSON object mean:
 <h3>Looking</h3>
 <p>If you want to get an update on what's going on in the world, but don't want to lose the sweet spot you have claimed, you can do that by looking. 
     To look, make an HTTP request to the following url:</p>
-<p><span class="code">https://xortag20231025163813.azurewebsites.net/look/</span>{{your player id}}</p>
+<p><span class="code">https://tagurl/look/</span>{{your player id}}</p>
 <p>As with moving, make sure to supply your user id. Also, in response to your request you'll receive back an updated JSON object.</p>
 
 
@@ -165,7 +165,7 @@ Here is what the different fields on that JSON object mean:
         xhr.open("GET", "/stats");
         xhr.send();
     }, 1000);
-
+    document.body.innerHTML = document.body.innerHTML.replace(/tagurl/g, window.location.host );
 </script>
 
 </body>
