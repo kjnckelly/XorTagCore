@@ -80,10 +80,11 @@ Here is what the different fields on that JSON object mean:
 <h3>Registering</h3>
 <p>This is the first step you'll need to do. When you register the game will create your player, assign you an id, 
     pick a name for you and put your player on the map. When you register you'll get back a JSON object (as described above) 
-    that will let you know what your id is and where your player is. If you would like to specify your name, you can with by adding <span class="code">?name=YourName</span> to the end of the url.
-    To register you need to make an HTTP request to the following url:
+    that will let you know what your id is and where your player is. To register you need to make an HTTP request to the following url:
 </p>
 <p><span class="code">https://tagurl/register</span></p>
+<p>Or to specify a name:</p>
+<p><span class="code">https://tagurl/register?name={{your name}}</span></p>
 
 <h3>Moving</h3>
 <p>Once you are registered you can start moving your player around. This is the heart of tag. If you are "it", try to move towards other players and tag them. 

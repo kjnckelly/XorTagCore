@@ -21,6 +21,7 @@ public class PlayerActionsController : ControllerBase
     [HttpPost("/register")]
     public RegistrationResult Register(string? name = null)
     {
+        if (name == "{{your name}}") name = null;
         return registerPlayerCommand.Execute(name);
     }
 
