@@ -86,7 +86,7 @@
         <b>mapHeight:</b> How many tiles wide the map is.<br />
         <b>mapWidth:</b> How many tiles high the map is.<br />
         <b>name:</b> Your player's name. Everyone's got to have a name.<br />
-        <b>players:</b> An array of other players that are close enough for you to see. Each player has an X position,
+        <b>players:</b> An array of other players that are close enough (within 15 units <a href="https://chris3606.github.io/GoRogue/articles/grid_components/measuring-distance.html#manhattan-distance">manhattan distance</a>) for you to see. Each player has an X position,
         a Y position and whether or not they are it. If they aren't it and you are, get 'em! If they are it, run for it.<br />
         <b>x:</b> The X (horizontal) position of your player. The left-most column on the map is position 0. The right-most column is <span class="code">mapWidth - 1</span>.<br />
         <b>y:</b> The Y (vertical) position of your player. The top row of the map is position 0. The bottom row is <span class="code">mapHeight - 1</span>.<br />
